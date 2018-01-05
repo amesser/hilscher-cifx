@@ -1,0 +1,39 @@
+--- a/driver/uio_netx/uio_netx.c
++++ b/driver/uio_netx/uio_netx.c
+@@ -8,6 +8,7 @@
+  *
+  */
+ 
++#include <linux/version.h>
+ #include <linux/device.h>
+ #include <linux/module.h>
+ #include <linux/pci.h>
+@@ -16,6 +17,10 @@
+ #include <linux/io.h>
+ #include <asm/cacheflush.h>
+ 
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(4,10,0)
++#include <asm/set_memory.h>
++#endif
++
+ #ifdef DMA_SUPPORT
+ #define DMA_BUFFER_COUNT 1
+ #define DMA_BUFFER_SIZE  8*8*1024
+@@ -237,7 +242,7 @@
+ }
+ #endif 
+ 
+-static int __devinit netx_pci_probe(struct pci_dev *dev,
++static int netx_pci_probe(struct pci_dev *dev,
+ 					const struct pci_device_id *id)
+ {
+ 	struct uio_info *info;
+@@ -306,7 +311,7 @@
+ 	}
+   
+ 	info->irq = dev->irq;
+-	info->irq_flags = IRQF_DISABLED | IRQF_SHARED;
++	info->irq_flags = IRQF_SHARED;
+ 	info->handler = netx_handler;
+ 	info->version = "0.0.1";
+ 	

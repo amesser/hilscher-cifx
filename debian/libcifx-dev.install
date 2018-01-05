@@ -1,0 +1,4 @@
+usr/include/cifx
+usr/lib/*/libcifx.a
+usr/lib/*/libcifx.la
+usr/lib/*/pkgconfig/cifx.pc

@@ -1,0 +1,55 @@
+Source: hilscher-cifx
+Section: devel
+Priority: optional
+Maintainer: Andreas Messer <andi@bastelmap.de>
+Standards-Version: 3.9.8
+Homepage: http://hilscher.com
+Build-Depends: debhelper (>= 10),
+               dpkg-dev (>= 1.16.0),
+               pkg-config,
+               automake,
+               autoconf (>= 2.65),
+               libtool,
+               libpciaccess-dev,
+               quilt
+
+Package: libcifx
+Section: libs
+Priority: optional
+Architecture: linux-any
+Multi-Arch: same
+Pre-Depends: debconf, ${misc:Pre-Depends}
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         hilscher-netx-kernel-module (= ${binary:Version})
+Description: cifx device driver library
+  This library contains the user space part of the cifx device driver for 
+  industrial communication cards from Hilscher Gesellschaft für Systemautomation mbH
+
+Package: libcifx-dev
+Section: devel
+Priority: optional
+Architecture: linux-any
+Multi-Arch: same
+Pre-Depends: debconf, ${misc:Pre-Depends}
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libcifx (= ${binary:Version})
+Description: cifx device driver library development files
+  This library contains the development files of the cifx device driver for 
+  industrial communication cards from Hilscher Gesellschaft für Systemautomation mbH
+
+Package: hilscher-netx-kernel-module
+Section: kernel
+Priority: optional
+Architecture: linux-any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         dkms
+Description: netx uio kernel module
+  This package contains the uio kernel module of the cifx device driver for 
+  industrial communication cards from Hilscher Gesellschaft für Systemautomation mbH
+
+
