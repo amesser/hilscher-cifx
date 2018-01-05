@@ -14,6 +14,11 @@ CONFFLAGS = \
   --with-rootlibdir=/lib/$(DEB_HOST_MULTIARCH) \
 
 override_dh_install:
+	dh_install -plibcifx driver/BSL/*.bin /opt/cifx
+	mkdir $(CURDIR)/debian/libcifx/opt/cifx/deviceconfig
+
+	dh_install -plibcifx-dev
+
 	dh_install -philscher-netx-kernel-module driver/uio_netx/* /usr/src/uio_netx-$(DEB_VERSION_UPSTREAM)
 	dh_install -philscher-netx-kernel-module debian/extra/99-netx.rules /etc/udev/rules.d
 	sed -e "s/^PACKAGE_VERSION=.*/PACKAGE_VERSION=$(DEB_VERSION_UPSTREAM)/" $(CURDIR)/debian/extra/dkms.conf >$(CURDIR)/debian/hilscher-netx-kernel-module/usr/src/uio_netx-$(DEB_VERSION_UPSTREAM)/dkms.conf
